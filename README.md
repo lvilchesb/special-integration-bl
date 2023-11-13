@@ -1,12 +1,19 @@
 # Getting Started
 
-### Reference Documentation
-For further reference, please consider the following sections:
+### Documentación de referencia
 
 * [Official Gradle documentation](https://docs.gradle.org)
 * [Spring Boot Gradle Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.5.4/gradle-plugin/reference/html/)
 
-### Repository
+# pre-requisito
+
+Java 8
+
+Gradle - Dependency Management
+
+Lombok - Java library
+
+### Repositorio
 
 To download from the repository run the following command:
 
@@ -20,7 +27,7 @@ Remember to compile in Java 8 or higher, and execute the following command
 
 And then you must execute the following command for run the application
 
-./gradlew bootRun --args='--spring.profiles.active=local'
+./gradlew bootRun
 
 
 # URL´s Y BODY para pruebas
@@ -30,6 +37,7 @@ And then you must execute the following command for run the application
 POST: http://localhost:8080/whole/postsale
 
 BODY:
+
 {
     "nombre": "Juan Rodriguez",
     "correo": "jaauan@rodriguez.cl",
@@ -52,6 +60,7 @@ BODY:
 PUT: http://localhost:8080/whole/putsale
 
 BODY:
+
 {
     "id": 1,
     "nombre": "Juan Rodriguez",
@@ -79,6 +88,7 @@ BODY:
 GET: http://localhost:8080/whole/getsale
 
 BODY:
+
 {
     "correo": "jaauan@rodriguez.cl"
 }
