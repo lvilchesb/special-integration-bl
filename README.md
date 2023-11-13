@@ -28,6 +28,7 @@ And then you must execute the following command for run the application
 * Utilizar herramienta postman para probar las apis.
 
 POST: http://localhost:8080/whole/postsale
+
 BODY:
 {
     "nombre": "Juan Rodriguez",
@@ -49,6 +50,7 @@ BODY:
 }
 
 PUT: http://localhost:8080/whole/putsale
+
 BODY:
 {
     "id": 1,
@@ -75,13 +77,16 @@ BODY:
 }
 
 GET: http://localhost:8080/whole/getsale
+
 BODY:
 {
     "correo": "jaauan@rodriguez.cl"
 }
 
 DELETE: http://localhost:8080/whole/deletesale
+
 BODY:
+
 {
     "correo": "jaauan@rodriguez.cl"
 }
@@ -91,11 +96,17 @@ BASE DE DATOS:
 URL: http://localhost:8080/h2-console/login.jsp?jsessionid=9f446ffd5213bfbdb518a1c0917a0a91
 
 # Datos de conexión
+
 Saved Settting: Generic H2 (Embedded)
+
 Setting Name: Generic H2 (Embedded)
+
 Driver Class: org.h2.Driver
+
 JDBC URL: jdbc:h2:mem:testdb
+
 User Name: sa
+
 Password: password
 
 ![Tabla y columnas](image.png)
