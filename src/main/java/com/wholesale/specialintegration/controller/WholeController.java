@@ -22,7 +22,7 @@ import com.wholesale.specialintegration.domain.Usuario;
 import com.wholesale.specialintegration.domain.UsuarioDTO;
 import com.wholesale.specialintegration.exception.WholeException;
 import com.wholesale.specialintegration.service.ObtainJWTGCPService;
-import com.wholesale.specialintegration.service.WholeService;
+import com.wholesale.specialintegration.service.WholeServiceBD;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/whole")
 public class WholeController {
 
-    private final WholeService wholeService;
+    private final WholeServiceBD wholeService;
     private final ObtainJWTGCPService jwt;
     @Value("${spring.message.apikey}")
     private String messageErrorApikey;

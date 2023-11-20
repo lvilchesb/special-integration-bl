@@ -2,7 +2,6 @@ package com.wholesale.specialintegration.service;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,36 +12,39 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import com.wholesale.specialintegration.domain.Usuario;
 import com.wholesale.specialintegration.exception.WholeException;
+import com.wholesale.specialintegration.service.repository.WholeRepository;
 
-@RunWith(MockitoJUnitRunner.class)
-public class WholeServiceTest {
+@RunWith(MockitoJUnitRunner.class)  
+public class WholeServiceBDTest {
     @Mock
-    private WholeServiceBD wholeServiceBD;
+    private WholeRepository repository;
     @InjectMocks
-    private WholeService wholeService;
-
+    private WholeServiceBD wholeService;
+    
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        ReflectionTestUtils.setField(wholeService, "messageFormatMail", "messageFormatMail");
-        ReflectionTestUtils.setField(wholeService, "validaMail", "validaMail");
-        ReflectionTestUtils.setField(wholeService, "validaPassword", "validaPassword");
-        ReflectionTestUtils.setField(wholeService, "messagePassword", "messagePassword");
-        ReflectionTestUtils.setField(wholeService, "messageRequest", "messagePassword");
+        ReflectionTestUtils.setField(wholeService, "messageNotUserRegister", "messageNotUserRegister");        
+        ReflectionTestUtils.setField(wholeService, "messageNotMailRegister", "messageNotMailRegister");
+        ReflectionTestUtils.setField(wholeService, "messageMailRegister", "messageMailRegister");
+        ReflectionTestUtils.setField(wholeService, "userDelete", "userDelete");
+        ReflectionTestUtils.setField(wholeService, "userActive", "userActive");
+
     }
 
     @Test
     public void testGetWhole() throws WholeException {
-        Assert.assertNotNull("NOT NULL", wholeService.getWhole(new Usuario()));
-        Assert.assertNotNull("NOT NULL", wholeService.getWhole(null));
+        Usuario user = new Usuario();
+        user.setCorreo("juan@rodriguez.com");
+        Assert.assertNotNull("NOT NULL", wholeService.getWhole(user));
     }
 
     @Test
     public void testPostWhole() throws WholeException {
+
         Usuario user = new Usuario();
         user.setCorreo("juan@rodriguez.com");
-        Assert.assertNotNull("NOT NULL", wholeService.postWhole(user));
-        Assert.assertNotNull("NOT NULL", wholeService.postWhole(null));
+        Assert.assertNull("NULL", wholeService.postWhole(user));        
     }
 
     @Test
@@ -51,7 +53,6 @@ public class WholeServiceTest {
         user.setCorreo("juan@rodriguez.com");
         user.setContrasena("Qhunter2");
         Assert.assertNotNull("NOT NULL", wholeService.putWhole(user));
-        Assert.assertNotNull("NOT NULL", wholeService.putWhole(null));
     }
 
     @Test
@@ -59,7 +60,6 @@ public class WholeServiceTest {
         Usuario user = new Usuario();
         user.setCorreo("juan@rodriguez.com");
         Assert.assertNotNull("NOT NULL", wholeService.deleteWhole(user));
-        Assert.assertNotNull("NOT NULL", wholeService.deleteWhole(null));
     }
 
 }
