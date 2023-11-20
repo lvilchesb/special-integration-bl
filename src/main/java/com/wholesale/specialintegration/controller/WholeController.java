@@ -38,17 +38,23 @@ public class WholeController {
     private String messageErrorApikey;
     @Value("${spring.message.token}")
     private String messageErrorToken;
+    @Value("${spring.token}")
+    private String tokenTest;
+    @Value("${spring.apikey}")
+    private String apikey;
+    @Value("${spring.bearer}")
+    private String bearer;
     
     @PostMapping(value = "/token", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object>tokenWhole( @RequestHeader(value = "api_key", required = true) String apiKey){ 
        //Para pruebas validaremos apikey aqui 
-       if(!apiKey.equalsIgnoreCase("APIkeyWhole")) {
+       if(!apiKey.equalsIgnoreCase(apikey)) {
            ErrorMessage error= new ErrorMessage();     
            error.setMessage(messageErrorApikey);
            return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
        }   
        TokenInformation token= new TokenInformation();
-       token.setToken("toKenWhOlE");
+       token.setToken(tokenTest);
        //se comenta metodo para pruebas
   //     token.setToken(jwt.obtainJWTGCP());
        
@@ -58,7 +64,7 @@ public class WholeController {
     @PostMapping(value = "/postsale", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object>postWhole(@RequestBody UsuarioDTO request, @RequestHeader(value = "authorization", required = true) String authentication) throws WholeException{        
         //validamos token manual para pruebas
-        if(!authentication.equalsIgnoreCase("Bearer"+" toKenWhOlE")) {
+        if(!authentication.equalsIgnoreCase(bearer+" "+tokenTest)) {
             ErrorMessage error= new ErrorMessage();     
             error.setMessage(messageErrorToken);
             return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
@@ -73,7 +79,7 @@ public class WholeController {
        
     @GetMapping(value = "/getsale", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object>getWhole(@RequestBody UsuarioDTO request, @RequestHeader(value = "authorization", required = true) String authentication) throws WholeException{        
-        if(!authentication.equalsIgnoreCase("Bearer"+" toKenWhOlE"))  {
+        if(!authentication.equalsIgnoreCase(bearer+" "+tokenTest))  {
             ErrorMessage error= new ErrorMessage();     
             error.setMessage(messageErrorToken);
             return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
@@ -85,7 +91,7 @@ public class WholeController {
         
     @PutMapping(value = "/putsale", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object>putWhole(@RequestBody UsuarioDTO request, @RequestHeader(value = "authorization", required = true) String authentication) throws WholeException{        
-        if(!authentication.equalsIgnoreCase("Bearer"+" toKenWhOlE"))  {
+        if(!authentication.equalsIgnoreCase(bearer+" "+tokenTest))  {
             ErrorMessage error= new ErrorMessage();     
             error.setMessage(messageErrorToken);
             return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
@@ -99,7 +105,7 @@ public class WholeController {
     
     @DeleteMapping(value = "/deletesale", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object>deleteWhole(@RequestBody UsuarioDTO request, @RequestHeader(value = "authorization", required = true) String authentication) throws WholeException{        
-        if(!authentication.equalsIgnoreCase("Bearer"+" toKenWhOlE"))  {
+        if(!authentication.equalsIgnoreCase(bearer+" "+tokenTest))  {
             ErrorMessage error= new ErrorMessage();     
             error.setMessage(messageErrorToken);
             return new ResponseEntity<>(error,HttpStatus.BAD_REQUEST);
