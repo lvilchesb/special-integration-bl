@@ -1,0 +1,292 @@
+swagger: '2.0'
+info:
+  title: "<%= endpoints_title %>"
+  description: "<%= endpoints_description %>"
+  version: 'DEFINITION_VERSION'
+host: "<%= service_name %>"
+x-google-endpoints:
+  - name: "<%= service_name %>"
+    allow_cors: "true"
+schemes:
+  - 'https'
+consumes:
+  - application/json
+produces:
+  - application/json
+tags:
+  - name: WHOLE
+    description: WHOLE
+paths:
+  "/whole/token":
+    get:
+      tags:
+        - Token
+      summary: Return jwt token
+      description: Return jwt token 
+      operationId: tokenWhole
+      responses:
+        200:
+          description: 'Successful Operation'
+          headers: 
+            Accept-Encoding:
+              type: "string"
+              default:  "gzip"
+              description: "The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand"
+            Cache-Control:
+              type: "string"
+              default:  "public"
+              description: 'field is used to specify directives for caching mechanisms in both requests and responses'  
+          schema:
+            $ref: '#/definitions/TokenInformation'
+        400:
+          $ref: '#/responses/BadRequest'
+        401:
+          $ref: '#/responses/Unauthorized'  
+        404:
+          $ref: '#/responses/NotFound'   
+        500:
+          $ref: '#/responses/InternalServerError'
+      security:
+      - api_key: []
+  "/whole/postsale":
+    post:
+      tags:
+        - User
+      summary: Insert User
+      description: insert User
+      operationId: postWhole
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: 'Request with Menu fields for send to ApiMetadata'
+        required: true
+        schema:
+          $ref: '#/definitions/UsuarioDTO'
+      responses:
+        200:
+          description: 'Successful Operation'
+          headers: 
+            Accept-Encoding:
+              type: "string"
+              default:  "gzip"
+              description: "The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand"
+            Cache-Control:
+              type: "string"
+              default:  "public"
+              description: 'field is used to specify directives for caching mechanisms in both requests and responses'  
+          schema:
+            $ref: '#/definitions/UsuarioDTO'
+        400:
+          $ref: '#/responses/BadRequest'
+        401:
+          $ref: '#/responses/Unauthorized'  
+        404:
+          $ref: '#/responses/NotFound'   
+        500:
+          $ref: '#/responses/InternalServerError'    
+      security:
+      - google_jwt_token: []
+  "/whole/getsale":
+    get:
+      tags:
+        - user
+      summary: Return User
+      description: Return User
+      operationId: getWhole
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: 'Request with user'
+        required: true
+        schema:
+          $ref: '#/definitions/UsuarioDTO'
+      responses:
+        200:
+          description: 'Successful Operation'
+          headers:
+            Accept-Encoding:
+              type: "string"
+              default: "gzip"
+              description: "The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand"
+            Cache-Control:
+              type: "string"
+              default: "public"
+              description: 'field is used to specify directives for caching mechanisms in both requests and responses'
+          schema:
+            $ref: '#/definitions/UsuarioDTO'
+        400:
+          $ref: '#/responses/BadRequest'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+      security:
+      - google_jwt_token: []
+  "/whole/putsale":
+    put:
+      tags:
+        - user
+      summary: Update User
+      description: Update User
+      operationId: putWhole
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: 'Request with user'
+        required: true
+        schema:
+          $ref: '#/definitions/UsuarioDTO'
+      responses:
+        200:
+          description: 'Successful Operation'
+          headers:
+            Accept-Encoding:
+              type: "string"
+              default: "gzip"
+              description: "The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand"
+            Cache-Control:
+              type: "string"
+              default: "public"
+              description: 'field is used to specify directives for caching mechanisms in both requests and responses'
+          schema:
+            $ref: '#/definitions/UsuarioDTO'
+        400:
+          $ref: '#/responses/BadRequest'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+      security:
+      - google_jwt_token: []
+  "/whole/delete":
+    delete:
+      tags:
+        - user
+      summary: Delete User
+      description: Delete User
+      operationId: deleleWhole
+      parameters:
+      - in: 'body'
+        name: 'body'
+        description: 'Request with user'
+        required: true
+        schema:
+          $ref: '#/definitions/UsuarioDTO'
+      responses:
+        200:
+          description: 'Successful Operation'
+          headers:
+            Accept-Encoding:
+              type: "string"
+              default: "gzip"
+              description: "The Accept-Encoding request HTTP header advertises which content encoding, usually a compression algorithm, the client is able to understand"
+            Cache-Control:
+              type: "string"
+              default: "public"
+              description: 'field is used to specify directives for caching mechanisms in both requests and responses'
+          schema:
+            $ref: '#/definitions/UsuarioDTO'
+        400:
+          $ref: '#/responses/BadRequest'
+        401:
+          $ref: '#/responses/Unauthorized'
+        404:
+          $ref: '#/responses/NotFound'
+        500:
+          $ref: '#/responses/InternalServerError'
+      security:
+      - google_jwt_token: []
+responses:
+  BadRequest:
+    description: 'This response means that the server could not interpret the request given an invalid syntax.'
+    schema:
+      $ref: '#/definitions/ServiceStatus'
+  NotFound:
+    description: 'The specified resource was not found'
+    schema:
+      $ref: '#/definitions/ServiceStatus'    
+  Unauthorized:
+    description: 'It is necessary to authenticate to obtain the requested response'
+    schema:
+      $ref: '#/definitions/ServiceStatus'
+  InternalServerError:
+    description: 'The server has found a situation that does not know how to handle it.'
+    schema:
+      $ref: '#/definitions/ServiceStatus'
+definitions:
+  UsuarioDTO:
+    type: object
+    properties:
+      id: 
+        type: integer
+      nombre: 
+        type: string
+      correo: 
+        type: string
+      contrasena:
+        type: string
+      telefonos:
+        type: array
+        items:
+          $ref: '#/definitions/Telefono'
+      creado:
+        type: string
+      modificado:
+        type: string
+      ultimoLogin:
+        type: string
+      token:
+        type: string
+      activo:
+        type: string
+  Telefono:
+    type: object
+    properties:
+      numero:
+        type: string
+      codigoCiudad:
+        type: string
+      codigoPais:
+        type: string
+   # END   - Schema for Telefono
+  ServiceStatus:
+    type: object
+    properties:
+      code: 
+        type: string
+        description: Code's service status
+      message:
+        type: string
+        description: message's service status
+  TokenInformation:
+    type: object
+    description: the token content in response
+    properties:
+      token:
+        type: string
+        example: 'lvMP/NqE8n2aWzCCZ2d72fo0E1k='
+
+securityDefinitions:
+  # This section configures authentication using Google OAuth2 ID Tokens.
+  # ID Tokens can bff obtained using OAuth2 clients, and can bff used to access
+  # your API on behalf of a particular user.
+  api_key:
+    type: "apiKey"
+    in: "query"
+    name: "api_key"
+  google_jwt_token:
+    authorizationUrl: "https://accounts.google.com/o/oauth2/auth"
+    flow: "implicit"
+    type: "oauth2"
+    x-google-issuer: "<%= securitydefinitions_xissuer %>"
+    x-google-jwks_uri: "<%= securitydefinitions_xgooglejwksuri %>"
+    # Your OAuth2 client's Client ID must bl added here. You can add
+    # multiple client IDs to accept tokens from multiple clients.
+    x-google-audiences: "CLIENT_ID"
+    scopes:
+      read: Grants read access
+      write: Grants write access

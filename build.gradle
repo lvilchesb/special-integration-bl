@@ -40,6 +40,13 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'io.projectreactor:reactor-test:3.5.8'
+	    implementation 'com.auth0:java-jwt:4.4.0'
+    implementation 'com.google.auth:google-auth-library-oauth2-http:1.19.0'
+	implementation 'com.google.auth:google-auth-library-credentials:1.19.0'
+	
+	testCompileOnly 'junit:junit:4.13.2' 
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.3.1'   
+    testImplementation 'io.projectreactor:reactor-test:3.5.8'
 }
 dependencyManagement {
 	imports {

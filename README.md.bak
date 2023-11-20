@@ -34,13 +34,6 @@ And then you must execute the following command for run the application
 
 * Utilizar herramienta postman para probar las apis.
 
-
-POST: http://localhost:8080/whole/token
-
-api_key de prueba: APIkeyWhole
-
-
-
 POST: http://localhost:8080/whole/postsale
 
 BODY:

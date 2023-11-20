@@ -14,7 +14,7 @@ public class UsuarioDTO {
     private String nombre;
     private String correo;
     private String contrasena;
-    private List<TelefonoDTO> telefonos;
+    private List<Telefono> telefonos;
     private Integer id;
     private String creado;
     private String modificado;
