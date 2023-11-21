@@ -63,7 +63,6 @@ public class WholeServiceBD {
             return error;
         }
         return user;
-
     }
 
     private void savePhones() {
@@ -98,16 +97,14 @@ public class WholeServiceBD {
 
     public Object deleteWhole(Usuario request) throws WholeException {
         ErrorMessage error = null;
-            user = new Usuario();
-            user = repository.searchEmail(request.getCorreo());
-            if (Objects.isNull(user)) {
-                error = new ErrorMessage();
-                error.setMessage(messageNotUserRegister);
-                return error;
-            }
-            repository.deleteById(user.getId());
+        user = new Usuario();
+        user = repository.searchEmail(request.getCorreo());
+        if (Objects.isNull(user)) {
             error = new ErrorMessage();
-            error.setMessage(userDelete);
-        return error;
+            error.setMessage(messageNotUserRegister);
+            return error;
+        }
+        repository.deleteById(user.getId());
+        return user;
     }
 }

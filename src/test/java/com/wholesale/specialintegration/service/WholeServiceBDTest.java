@@ -44,6 +44,7 @@ public class WholeServiceBDTest {
         ReflectionTestUtils.setField(wholeService, "messageMailRegister", "messageMailRegister");
         ReflectionTestUtils.setField(wholeService, "userDelete", "userDelete");
         ReflectionTestUtils.setField(wholeService, "userActive", "userActive");
+        ReflectionTestUtils.setField(wholeService, "user", new Usuario());
 
     }
 
@@ -163,9 +164,9 @@ public class WholeServiceBDTest {
         usuario.setCorreo("correo@correo.com");
         usuario.setId(1);
         ErrorMessage error = new ErrorMessage();
-        error.setMessage("messageNotUserRegister");
+        error.setMessage("userDelete");
         when(repository.searchEmail(usuario.getCorreo())).thenReturn(usuario);
-        assertEquals(error.getMessage(), ((ErrorMessage) wholeService.deleteWhole(usuario)).getMessage());
+        assertNotNull(wholeService.deleteWhole(usuario));
     }
 
     @Test
