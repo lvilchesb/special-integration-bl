@@ -56,7 +56,7 @@ public class WholeServiceBD {
         user = repository.searchEmail(request.getCorreo());
         if (Objects.isNull(user)) {
             user = repository.saveAndFlush(request);
-            savePhones(user);
+            savePhones();
         } else {
             ErrorMessage error = new ErrorMessage();
             error.setMessage(messageMailRegister);
@@ -66,10 +66,10 @@ public class WholeServiceBD {
 
     }
 
-    public void savePhones(Usuario request) {
+    private void savePhones() {
         if (Objects.nonNull(user)) {
             user.getTelefonos().forEach(phone -> phone.setUserId(user));
-            user = repository.save(request);
+            user = repository.save(user);
         }
     }
 

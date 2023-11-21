@@ -35,64 +35,70 @@ public class WholeService {
     private String messageRequest;
 
     private final WholeServiceBD wholeServiceBD;
+    
+    private ErrorMessage error;
 
     public Object getWhole(Usuario request) throws WholeException {
+        error = new ErrorMessage();
         if (Objects.isNull(request)) {
-            ErrorMessage error = new ErrorMessage();
             error.setMessage(messageRequest);
             return error;
         } else {
-            ErrorMessage errorValidate = errorMail(request);
-            if (Objects.nonNull(errorValidate)) {
-                return errorValidate;
+            error = errorMail(request);
+            if (Objects.nonNull(error)) {
+                return error;
             }
         }
-
         return wholeServiceBD.getWhole(request);
     }
 
     public Object postWhole(Usuario request) throws WholeException {
+        error = new ErrorMessage();
         if (Objects.isNull(request)) {
-            ErrorMessage error = new ErrorMessage();
             error.setMessage(messageRequest);
             return error;
-        } else {
-            ErrorMessage errorValidate = errorValidate(request);
-            if (Objects.nonNull(errorValidate)) {
-                return errorValidate;
+        } else { 
+            error = errorMail(request);
+            if (Objects.nonNull(error)) {
+                return error;
+            }
+            error = errorpass(request);
+            if (Objects.nonNull(error)) {
+                return error;
             }
         }
         return wholeServiceBD.postWhole(request);
     }
 
     public Object putWhole(Usuario request) throws WholeException {
+        error = new ErrorMessage();
         if (Objects.isNull(request)) {
-            ErrorMessage error = new ErrorMessage();
             error.setMessage(messageRequest);
             return error;
-        } else {
-            ErrorMessage errorValidate = errorValidate(request);
-            if (Objects.nonNull(errorValidate)) {
-                return errorValidate;
+        } else { 
+            error = errorMail(request);
+            if (Objects.nonNull(error)) {
+                return error;
+            }
+            error = errorpass(request);
+            if (Objects.nonNull(error)) {
+                return error;
             }
         }
-
         return wholeServiceBD.putWhole(request);
     }
 
     public Object deleteWhole(Usuario request) throws WholeException {
-
+        error = new ErrorMessage();
         if (Objects.isNull(request)) {
-            ErrorMessage error = new ErrorMessage();
             error.setMessage(messageRequest);
             return error;
         } else {
-            ErrorMessage errorValidate = errorMail(request);
-            if (Objects.nonNull(errorValidate)) {
-                return errorValidate;
+            error = errorMail(request);
+            if (Objects.nonNull(error)) {
+                return error;
             }
         }
-
         return wholeServiceBD.deleteWhole(request);
     }
 
@@ -108,31 +114,22 @@ public class WholeService {
         return matcher.matches();
     }
 
-    private ErrorMessage errorValidate(Usuario request) {
-        if ((Objects.isNull(request.getCorreo()) || request.getCorreo().isEmpty())
-                || !validaEmail(request.getCorreo())) {
-            ErrorMessage error = new ErrorMessage();
-            error.setMessage(messageFormatMail);
-            return error;
-
-        }
+    private ErrorMessage errorpass(Usuario request) {
+    
         if (Objects.isNull(request.getContrasena()) || request.getContrasena().isEmpty()
                 || !password(request.getContrasena())) {
-            ErrorMessage error = new ErrorMessage();
+            error = new ErrorMessage();
             error.setMessage(messagePassword);
             return error;
-
         }
-
         return null;
     }
 
     private ErrorMessage errorMail(Usuario request) {
         if (Objects.isNull(request.getCorreo()) || request.getCorreo().isEmpty() || !validaEmail(request.getCorreo())) {
-            ErrorMessage error = new ErrorMessage();
+            error = new ErrorMessage();
             error.setMessage(messageFormatMail);
             return error;
-
         }
         return null;
     }
